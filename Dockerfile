@@ -13,6 +13,7 @@ FROM ubuntu
 ENV TMP_PATH            /tmp
 ENV SSL_INSTALL_PATH    /usr/local/ssl
 ENV OPENSSL_PATH        $TMP_PATH/openssl-1.0.2h
+ENV PYTHON_PATH        $TMP_PATH/Python-3.6.0
 ENV OPENSSL_FIPS        1
 
 # Set build arguments
@@ -40,7 +41,9 @@ RUN apt-get update &&           \
       file                      \
       g++                       \
       make                      \
-      vim
+      vim                       \
+      gzip                      \
+      zlib1g-dev
 
 ##############################################################################
 # CONFIGURE AND INSTALL OPENSSL
@@ -54,20 +57,35 @@ RUN make install
 
 # Configure OpenSSL (with FIPS)
 WORKDIR $OPENSSL_PATH
-RUN ./config fips
+RUN ./config shared fips
 RUN make
 RUN make install
 
 ##############################################################################
-# LINKING
+# LINKING AND EXPORTING
 ##############################################################################
 
 RUN ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
+RUN ln -s /usr/local/ssl/lib /usr/lib/ssl
+RUN ln -s /usr/local/ssl/include/openssl/ /usr/include/ssl
+
+RUN export LDFLAGS="-L/usr/local/ssl/lib/"
+RUN export LD_LIBRARY_PATH="/usr/local/ssl/lib/"
+RUN export CPPFLAGS="-I/usr/local/ssl/include/ -I/usr/local/ssl/include/openssl/"
+
+##############################################################################
+# BUILDING PYTHON3.6 with openssl
+##############################################################################
+
+# Configure Python (with FIPS Openssl)
+WORKDIR $PYTHON_PATH
+RUN ./configure --enable-shared
+RUN make
+RUN make install
 
 ##############################################################################
 # DOCKER END
 ##############################################################################
 
-# Run Nginx
 WORKDIR "/home"
 CMD ["/bin/bash"]
