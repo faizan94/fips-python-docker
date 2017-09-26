@@ -12,11 +12,6 @@ FROM ubuntu
 # Set environment variables
 ENV TMP_PATH            /tmp
 ENV SSL_INSTALL_PATH    /usr/local/ssl
-
-ENV HTTP_REDIS_PATH     $TMP_PATH/ngx_http_redis-0.3.8
-ENV ZLIB_PATH           $TMP_PATH/zlib-1.2.8
-ENV PCRE_PATH           $TMP_PATH/pcre-8.39
-
 ENV OPENSSL_PATH        $TMP_PATH/openssl-1.0.2h
 ENV OPENSSL_FIPS        1
 
@@ -24,7 +19,6 @@ ENV OPENSSL_FIPS        1
 ARG OPENSSL_FIPS_PATH=openssl-fips-2.0.12
 ARG SRC_TMP_PATH=tmp
 ARG SRC_PATH=src
-ARG LIB_PATH=lib
 
 ##############################################################################
 # COPY SOURCE CODE
@@ -63,6 +57,16 @@ WORKDIR $OPENSSL_PATH
 RUN ./config fips
 RUN make
 RUN make install
+
+##############################################################################
+# LINKING
+##############################################################################
+
+RUN ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
+
+##############################################################################
+# DOCKER END
+##############################################################################
 
 # Run Nginx
 WORKDIR "/home"
