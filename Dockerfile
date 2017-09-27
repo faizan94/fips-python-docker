@@ -13,7 +13,7 @@ FROM ubuntu
 ENV TMP_PATH            /tmp
 ENV SSL_INSTALL_PATH    /usr/local/ssl
 ENV OPENSSL_PATH        $TMP_PATH/openssl-1.0.2h
-ENV PYTHON_PATH         $TMP_PATH/Python-3.6.0
+ENV PYTHON_PATH        $TMP_PATH/Python-3.6.0
 ENV OPENSSL_FIPS        1
 
 # Set build arguments
@@ -61,25 +61,6 @@ RUN ./config shared fips
 RUN make
 RUN make install
 
-##############################################################################
-# LINKING, EXPORTING AND SOME EXTRA DEPENDENCIES
-##############################################################################
-
-RUN ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
-RUN ln -s /usr/local/ssl/lib /usr/lib/ssl
-RUN ln -s /usr/local/ssl/include/openssl/ /usr/include/ssl
-
-RUN export LDFLAGS="-L/usr/local/ssl/lib/"
-RUN export LD_LIBRARY_PATH="/usr/local/ssl/lib/"
-RUN export CPPFLAGS="-I/usr/local/ssl/include/ -I/usr/local/ssl/include/openssl/"
-
-
-##############################################################################
-# BUILDING PYTHON3.6 with openssl and linking it
-##############################################################################
-
-# Configure Python (with FIPS Openssl)
-# open container bash and run sh script
 
 ##############################################################################
 # DOCKER END
