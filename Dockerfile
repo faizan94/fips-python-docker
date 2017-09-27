@@ -79,17 +79,7 @@ RUN export CPPFLAGS="-I/usr/local/ssl/include/ -I/usr/local/ssl/include/openssl/
 ##############################################################################
 
 # Configure Python (with FIPS Openssl)
-WORKDIR /tmp/Python-3.6.0
-RUN ./configure --enable-shared --prefix=/usr/local/python3.6
-RUN make
-RUN make install
-
-RUN ln -s /usr/local/python3.6/bin/python3 /usr/bin/python3
-RUN ln -s /usr/local/python3.6/bin/pip3.6 /usr/bin/pip3
-RUN ln -s /usr/local/python3.6/include/python3.6m/ /usr/include/python3.6
-RUN ln -s /usr/local/python3.6/lib/python3.6/ /usr/lib/python3.6
-RUN ln -s /usr/local/python3.6/lib/libpython3.6m.so.1.0 /usr/lib/x86_64-linux-gnu/libpython3.6m.so.1.0
-RUN ln -s /usr/local/python3.6/lib/libpython3.6m.so /usr/lib/x86_64-linux-gnu/libpython3.6m.so
+# open container bash and run sh script
 
 ##############################################################################
 # DOCKER END
