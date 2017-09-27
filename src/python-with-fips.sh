@@ -12,7 +12,6 @@ cd /tmp
 tar xf Python-3.6.0.tar.xz
 rm Python-3.6.0.tar.xz
 
-
 cd /tmp/Python-3.6.0
 ./configure --enable-shared --prefix=/usr/local/python3.6
 make
