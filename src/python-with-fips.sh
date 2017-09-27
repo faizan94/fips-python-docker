@@ -1,5 +1,3 @@
-
-
 ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
 ln -s /usr/local/ssl/lib /usr/lib/ssl
 ln -s /usr/local/ssl/include/openssl/ /usr/include/ssl
@@ -19,7 +17,9 @@ cd /tmp/Python-3.6.0
 make
 make install
 
-ln -s /usr/local/python3.6/bin/python3 /usr/bin/python3
+ln -s /usr/local/python3.6/bin/python3.6 /usr/bin/python
+ln -s /usr/local/python3.6/bin/pip3.6 /usr/bin/pip
+ln -s /usr/local/python3.6/bin/python3.6 /usr/bin/python3
 ln -s /usr/local/python3.6/bin/pip3.6 /usr/bin/pip3
 ln -s /usr/local/python3.6/include/python3.6m/ /usr/include/python3.6
 ln -s /usr/local/python3.6/lib/python3.6/ /usr/lib/python3.6
