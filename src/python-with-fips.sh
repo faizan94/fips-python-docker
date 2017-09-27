@@ -11,6 +11,8 @@ export CPPFLAGS="-I/usr/local/ssl/include/ -I/usr/local/ssl/include/openssl/"
 cd /tmp
 tar xf Python-3.6.0.tar.xz
 rm Python-3.6.0.tar.xz
+rm /tmp/Python-3.6.0/Modules/Setup.dist
+cp Setup.dist Python-3.6.0/Modules
 
 cd /tmp/Python-3.6.0
 ./configure --enable-shared --prefix=/usr/local/python3.6
