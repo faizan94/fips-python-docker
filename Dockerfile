@@ -16,8 +16,6 @@ ENV OPENSSL_PATH        $TMP_PATH/openssl-1.0.2h
 ENV PYTHON_PATH         $TMP_PATH/Python-3.6.0
 ENV OPENSSL_FIPS        1
 
-print(os.environ["OPENSSL_FORCE_FIPS_MODE"])
-
 # Set build arguments
 ARG OPENSSL_FIPS_PATH=openssl-fips-2.0.12
 ARG SRC_TMP_PATH=tmp
