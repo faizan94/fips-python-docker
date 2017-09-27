@@ -65,13 +65,13 @@ RUN make install
 # LINKING, EXPORTING AND SOME EXTRA DEPENDENCIES
 ##############################################################################
 
-ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
-ln -s /usr/local/ssl/lib /usr/lib/ssl
-ln -s /usr/local/ssl/include/openssl/ /usr/include/ssl
+RUN ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
+RUN ln -s /usr/local/ssl/lib /usr/lib/ssl
+RUN ln -s /usr/local/ssl/include/openssl/ /usr/include/ssl
 
-export LDFLAGS="-L/usr/local/ssl/lib/"
-export LD_LIBRARY_PATH="/usr/local/ssl/lib/"
-export CPPFLAGS="-I/usr/local/ssl/include/ -I/usr/local/ssl/include/openssl/"
+RUN export LDFLAGS="-L/usr/local/ssl/lib/"
+RUN export LD_LIBRARY_PATH="/usr/local/ssl/lib/"
+RUN export CPPFLAGS="-I/usr/local/ssl/include/ -I/usr/local/ssl/include/openssl/"
 
 
 ##############################################################################
